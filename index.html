@@ -6,6 +6,10 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
   <title>Era Result</title>
   <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
     #transprent{
     background-color: rgba(21, 13, 29, 0.5)!important;
     backdrop-filter: blur(10px) !important;
@@ -37,53 +41,56 @@
     </div>
     <div class="bg-white p-4 rounded-md shadow-md mt-4 glass-card">
       <h2 class="text-xl font-semibold mb-4">Era University Result</h2>
-      <div class="flex justify-between mb-4">
-        <div>
-          <label for="semester" class="block text-sm font-medium text-gray-700">Semester</label>
-          <input type="text" id="semester" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        </div>
-        <div>
-          <label for="year" class="block text-sm font-medium text-gray-700">Year</label>
-          <input type="text" id="year" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        </div>
-        <div>
-          <label for="branch" class="block text-sm font-medium text-gray-700">Branch</label>
-          <input type="text" id="branch" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        </div>
-      </div>
-      <div class="grid grid-cols-3 gap-4">
-        <div class="bg-green-100 text-green-800 p-4 rounded-md">
-          <h3 class="font-semibold">Pankaj Kumar</h3>
-          <p>195752 ECE</p>
-          <p>CGPI 8.98</p>
-        </div>
-        <div class="bg-green-100 text-green-800 p-4 rounded-md">
+      <div id="card" class="grid grid-cols-3 gap-4">
+        <!-- <div class="bg-green-200 text-black p-4 rounded-md">
+          <h3 class="font-semibold">Course name</h3>
+          <p>Semester</p>
+          <p id="url">URl</p>
+        </div> -->
+        <!-- <div class="bg-yellow-200 text-black p-4 rounded-md">
           <h3 class="font-semibold">Rakesh Kumar</h3>
           <p>195862 CSE</p>
           <p>CGPI 9.12</p>
-        </div>
-        <div class="bg-green-100 text-green-800 p-4 rounded-md">
+        </div> -->
+        <!-- <div class="bg-green-100 text-green-800 p-4 rounded-md">
           <h3 class="font-semibold">Esha Yadav</h3>
           <p>195782 ECE</p>
           <p>CGPI 8.57</p>
-        </div>
-        <div class="bg-green-100 text-green-800 p-4 rounded-md">
+        </div> -->
+        <!-- <div class="bg-green-100 text-green-800 p-4 rounded-md">
           <h3 class="font-semibold">Radhika</h3>
           <p>195712 Mech</p>
           <p>CGPI 8.16</p>
-        </div>
-        <div class="bg-green-100 text-green-800 p-4 rounded-md">
+        </div> -->
+        <!-- <div class="bg-green-100 text-green-800 p-4 rounded-md">
           <h3 class="font-semibold">Hitesh</h3>
           <p>195791 ECE</p>
           <p>CGPI 8.88</p>
-        </div>
-        <div class="bg-green-100 text-green-800 p-4 rounded-md">
+        </div> -->
+        <!-- <div class="bg-green-100 text-green-800 p-4 rounded-md">
           <h3 class="font-semibold">Pranjali</h3>
           <p>195731 ECE</p>
           <p>CGPI 7.87</p>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
+
+<script>
+        const card = document.getElementById('card');
+        fetch('https://eu-result-data.onrender.com/scrape')
+        .then(response => response.json())
+        .then(data => {
+            let counter = 0;
+            data.forEach(item => {
+                    let bgColorClass = counter % 2 === 0 ? 'bg-green-200' : 'bg-yellow-200';
+                    card.appendChild(document.createElement('div')).innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md"><h3 class="font-semibold">${item.text}</h3> <br> <a href="https://www.erauniversity.in/result/${item.href}">View</a> </div>`;
+                    counter++;
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+</script>
 </body>
 </html>
