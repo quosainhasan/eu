@@ -36,7 +36,7 @@
         <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-        <input class="bg-transparent placeholder-gray-300 text-black outline-none" type="text" placeholder="Search">
+        <input id="search" class="bg-transparent placeholder-gray-300 text-black outline-none" type="text" placeholder="Search">
       </div>
     </div>
     <div class="bg-white p-4 rounded-md shadow-md mt-4 glass-card">
@@ -78,26 +78,54 @@
 
 <script>
         const card = document.getElementById('card');
+        const search = document.getElementById('search');
+        let data = [];
         // I want to add sckeleton loader here
         for (let i = 0; i < 6; i++) {
           let counter = 0;
           let bgColorClass = counter % 2 === 0 ? 'bg-green-200' : 'bg-yellow-200';
             card.appendChild(document.createElement('div')).innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md animate-pulse"><h3 class="font-semibold">Loading...</h3> <br> <a class="underline decoration-wavy font-medium text-sm text-black">View</a> </div>`;
-        }
-        fetch('https://eu-result-data.onrender.com/scrape')
-        .then(response => response.json())
-        .then(data => {
-            card.innerHTML = '';
-            let counter = 0;
-            data.forEach(item => {
-                    let bgColorClass = counter % 2 === 0 ? 'bg-green-200' : 'bg-yellow-200';
-                    card.appendChild(document.createElement('div')).innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md"><h3 class="font-semibold">${item.text}</h3> <br> <a class="underline decoration-wavy font-medium text-sm text-black" href="https://www.erauniversity.in/result/${item.href}" target="_blank" rel="noopener noreferrer">View</a> </div>`;
-                    counter++;
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
+        };
+
+        search.addEventListener('input', () => {
+          const searchTerm = search.value.toLowerCase();
+          const filteredData = data.filter(item => item.text.toLowerCase().includes(searchTerm));
+          displayData(filteredData);
         });
+        
+        // fetch('https://eu-result-data.onrender.com/scrape')
+        // .then(response => response.json())
+        // .then(data => {
+        //     card.innerHTML = '';
+        //     let counter = 0;
+        //     data.forEach(item => {
+        //             let bgColorClass = counter % 2 === 0 ? 'bg-green-200' : 'bg-yellow-200';
+        //             card.appendChild(document.createElement('div')).innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md"><h3 class="font-semibold">${item.text}</h3> <br> <a class="underline decoration-wavy font-medium text-sm text-black" href="https://www.erauniversity.in/result/${item.href}" target="_blank" rel="noopener noreferrer">View</a> </div>`;
+        //             counter++;
+        //     });
+        // })
+        // .catch(error => {
+        //     console.error('Error:', error);
+        // });
+        fetch('https://eu-result-data.onrender.com/scrape')
+  .then(response => response.json())
+  .then(fetchedData => {
+    data = fetchedData;
+    displayData(data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+  function displayData(dataToDisplay) {
+    card.innerHTML = '';
+    let counter = 0;
+    dataToDisplay.forEach(item => {
+      let bgColorClass = counter % 2 === 0 ? 'bg-green-200' : 'bg-yellow-200';
+      card.appendChild(document.createElement('div')).innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md"><h3 class="font-semibold">${item.text}</h3> <br> <a class="underline decoration-wavy font-medium text-sm text-black" href="https://www.erauniversity.in/result/${item.href}" target="_blank" rel="noopener noreferrer">View</a> </div>`;
+      counter++;
+    });
+  }
 </script>
 </body>
 </html>
