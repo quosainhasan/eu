@@ -2,7 +2,7 @@
     "name": "Era University Result",
     "short_name": "Era Result",
     "description": "View results of Era University",
-    "start_url": "/",
+    "start_url": "/eu",
     "display": "standalone",
     "background_color": "#3b82f6",
     "theme_color": "#c0defc",
