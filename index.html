@@ -78,13 +78,18 @@
 
 <script>
         const card = document.getElementById('card');
+        // I want to add sckeleton loader here
+        for (let i = 0; i < 6; i++) {
+            card.appendChild(document.createElement('div')).innerHTML = `<div class="bg-green-200 text-black p-4 rounded-md animate-pulse"><h3 class="font-semibold">Loading...</h3> <br> <a class="underline decoration-wavy font-medium text-sm text-black">View</a> </div>`;
+        }
         fetch('https://eu-result-data.onrender.com/scrape')
         .then(response => response.json())
         .then(data => {
+            card.innerHTML = '';
             let counter = 0;
             data.forEach(item => {
                     let bgColorClass = counter % 2 === 0 ? 'bg-green-200' : 'bg-yellow-200';
-                    card.appendChild(document.createElement('div')).innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md"><h3 class="font-semibold">${item.text}</h3> <br> <a href="https://www.erauniversity.in/result/${item.href}">View</a> </div>`;
+                    card.appendChild(document.createElement('div')).innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md"><h3 class="font-semibold">${item.text}</h3> <br> <a class="underline decoration-wavy font-medium text-sm text-black" href="https://www.erauniversity.in/result/${item.href}" target="_blank" rel="noopener noreferrer">View</a> </div>`;
                     counter++;
             });
         })
