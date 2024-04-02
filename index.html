@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <title>Era Result</title>
+  <style>
+    #transprent{
+    background-color: rgba(21, 13, 29, 0.5)!important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid #2a2034 !important;
+    border-radius: 10px !important;
+    min-height: 90px !important;
+    margin: 0 auto !important;
+    z-index: 1030;
+    /* padding: 2vh 0 2vh 0 !important; */
+}
+
+.glass-card{
+    background: rgba(255, 255, 255, 0.2) !important; /* Semi-transparent white background on hover */
+    border-color: rgba(255, 255, 255, 0.8) !important; /* Increase border opacity on hover */
+    color: #fff !important; /* Text color on hover */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important; /* Add a subtle glow on hover */   
+}
+  </style>
+</head>
+<body class="bg-blue-500">
+  <div class="container mx-auto my-8">
+    <div class="bg-white text-black px-4 py-2 rounded-md flex justify-between items-center">
+      <div class="flex items-center">
+        <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input class="bg-transparent placeholder-gray-300 text-black outline-none" type="text" placeholder="Search">
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded-md shadow-md mt-4 glass-card">
+      <h2 class="text-xl font-semibold mb-4">Branchwise Top Performers</h2>
+      <div class="flex justify-between mb-4">
+        <div>
+          <label for="semester" class="block text-sm font-medium text-gray-700">Semester</label>
+          <input type="text" id="semester" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        </div>
+        <div>
+          <label for="year" class="block text-sm font-medium text-gray-700">Year</label>
+          <input type="text" id="year" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        </div>
+        <div>
+          <label for="branch" class="block text-sm font-medium text-gray-700">Branch</label>
+          <input type="text" id="branch" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-green-100 text-green-800 p-4 rounded-md">
+          <h3 class="font-semibold">Pankaj Kumar</h3>
+          <p>195752 ECE</p>
+          <p>CGPI 8.98</p>
+        </div>
+        <div class="bg-green-100 text-green-800 p-4 rounded-md">
+          <h3 class="font-semibold">Rakesh Kumar</h3>
+          <p>195862 CSE</p>
+          <p>CGPI 9.12</p>
+        </div>
+        <div class="bg-green-100 text-green-800 p-4 rounded-md">
+          <h3 class="font-semibold">Esha Yadav</h3>
+          <p>195782 ECE</p>
+          <p>CGPI 8.57</p>
+        </div>
+        <div class="bg-green-100 text-green-800 p-4 rounded-md">
+          <h3 class="font-semibold">Radhika</h3>
+          <p>195712 Mech</p>
+          <p>CGPI 8.16</p>
+        </div>
+        <div class="bg-green-100 text-green-800 p-4 rounded-md">
+          <h3 class="font-semibold">Hitesh</h3>
+          <p>195791 ECE</p>
+          <p>CGPI 8.88</p>
+        </div>
+        <div class="bg-green-100 text-green-800 p-4 rounded-md">
+          <h3 class="font-semibold">Pranjali</h3>
+          <p>195731 ECE</p>
+          <p>CGPI 7.87</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
