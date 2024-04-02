@@ -12,6 +12,8 @@
   <meta name="googlebot" content="index, follow">
   <meta name="bingbot" content="index, follow">
   <title>Era Result</title>
+  <link rel="shortcut icon" href="./images/EU.png" type="image/x-icon">
+  <link rel="manifest" href="/manifest.json">
   <style>
     *{
       margin: 0;
@@ -84,6 +86,12 @@
   </div>
 
 <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+      .then((reg) => {
+        console.log('Service worker registered.', reg);
+      });
+    }
         const card = document.getElementById('card');
         const search = document.getElementById('search');
         let data = [];

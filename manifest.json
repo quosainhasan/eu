@@ -1,0 +1,21 @@
+{
+    "name": "Era University Result",
+    "short_name": "Era Result",
+    "description": "View results of Era University",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#3b82f6",
+    "theme_color": "#c0defc",
+    "icons": [
+        {
+            "src": "./images/EU.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./images/EU.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
