@@ -36,6 +36,10 @@
     color: #fff !important; /* Text color on hover */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important; /* Add a subtle glow on hover */   
 }
+  #search {
+    width: 80vw;
+    overflow: hidden;
+  }
   </style>
 </head>
 <body class="bg-blue-500">
@@ -102,45 +106,77 @@
             card.appendChild(document.createElement('div')).innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md animate-pulse"><h3 class="font-semibold">Loading...</h3> <br> <a class="underline decoration-wavy font-medium text-sm text-black">View</a> </div>`;
         };
 
-        search.addEventListener('input', () => {
-          const searchTerm = search.value.toLowerCase();
-          const filteredData = data.filter(item => item.text.toLowerCase().includes(searchTerm));
-          displayData(filteredData);
-        });
-        
-        // fetch('https://eu-result-data.onrender.com/scrape')
-        // .then(response => response.json())
-        // .then(data => {
-        //     card.innerHTML = '';
-        //     let counter = 0;
-        //     data.forEach(item => {
-        //             let bgColorClass = counter % 2 === 0 ? 'bg-green-200' : 'bg-yellow-200';
-        //             card.appendChild(document.createElement('div')).innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md"><h3 class="font-semibold">${item.text}</h3> <br> <a class="underline decoration-wavy font-medium text-sm text-black" href="https://www.erauniversity.in/result/${item.href}" target="_blank" rel="noopener noreferrer">View</a> </div>`;
-        //             counter++;
-        //     });
-        // })
-        // .catch(error => {
-        //     console.error('Error:', error);
-        // });
-        fetch('https://eu-result-data.onrender.com/scrape')
-  .then(response => response.json())
-  .then(fetchedData => {
-    data = fetchedData;
-    displayData(data);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
+  //       search.addEventListener('input', () => {
+  //         const searchTerm = search.value.toLowerCase();
+  //         const filteredData = data.filter(item => item.text.toLowerCase().includes(searchTerm));
+  //         displayData(filteredData);
+  //       });
+  //       fetch('https://eu-result-data.onrender.com/scrape')
+  // .then(response => response.json())
+  // .then(fetchedData => {
+  //   data = fetchedData;
+  //   displayData(data);
+  // })
+  // .catch(error => {
+  //   console.error('Error:', error);
+  // });
 
-  function displayData(dataToDisplay) {
-    card.innerHTML = '';
-    let counter = 0;
-    dataToDisplay.forEach(item => {
-      let bgColorClass = counter % 2 === 0 ? 'bg-green-200' : 'bg-yellow-200';
-      card.appendChild(document.createElement('div')).innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md"><h3 class="font-semibold">${item.text}</h3> <br> <a class="underline decoration-wavy font-medium text-sm text-black" href="https://www.erauniversity.in/result/${item.href}" target="_blank" rel="noopener noreferrer">View</a> </div>`;
-      counter++;
-    });
-  }
+  // function displayData(dataToDisplay) {
+  //   card.innerHTML = '';
+  //   let counter = 0;
+  //   dataToDisplay.forEach(item => {
+  //     let bgColorClass = counter % 2 === 0 ? 'bg-green-200' : 'bg-yellow-200';
+  //     card.appendChild(document.createElement('div')).innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md"><h3 class="font-semibold">${item.text}</h3> <br> <a class="underline decoration-wavy font-medium text-sm text-black" href="https://www.erauniversity.in/result/${item.href}" target="_blank" rel="noopener noreferrer">View</a> </div>`;
+  //     counter++;
+  //   });
+  // }
+      // const card = document.getElementById('card');
+      // const search = document.getElementById('search');
+      // let data = [];
+
+      search.addEventListener('input', updateDisplay);
+      window.addEventListener('load', () => {
+        const params = new URLSearchParams(window.location.search);
+        const searchTerm = params.get('search');
+        if (searchTerm) {
+          search.value = searchTerm;
+          updateDisplay();
+        }
+      });
+
+      fetch('https://eu-result-data.onrender.com/scrape')
+      .then(response => response.json())
+      .then(fetchedData => {
+        data = fetchedData;
+        updateDisplay();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+      function updateDisplay() {
+        const searchTerm = search.value.toLowerCase();
+        const filteredData = data.filter(item => item.text.toLowerCase().includes(searchTerm));
+        displayData(filteredData);
+      }
+
+      function displayData(dataToDisplay) {
+        card.innerHTML = '';
+        let counter = 0;
+        dataToDisplay.forEach(item => {
+          let bgColorClass = counter % 2 === 0 ? 'bg-green-200' : 'bg-yellow-200';
+          const div = document.createElement('div');
+          div.innerHTML = `<div class="${bgColorClass} text-black p-4 rounded-md"><h3 class="font-semibold">${item.text}</h3> <br> <a class="underline decoration-wavy font-medium text-sm text-black" href="https://www.erauniversity.in/result/${item.href}" target="_blank" rel="noopener noreferrer">View</a> <button class="share-button underline decoration-wavy font-medium text-sm text-black">Share</button></div>`;
+          div.querySelector('.share-button').addEventListener('click', () => {
+            const url = new URL(window.location.href);
+            url.searchParams.set('search', item.text);
+            navigator.clipboard.writeText(url.toString());
+            alert('Link copied to clipboard');
+          });
+          card.appendChild(div);
+          counter++;
+        });
+      }
 </script>
 </body>
 </html>
